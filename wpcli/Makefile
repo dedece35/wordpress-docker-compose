@@ -46,6 +46,19 @@ else ifneq ($(strip ${WORDPRESS_REPO_PLUGINS}),)
 	wpPlugins := ${WORDPRESS_REPO_PLUGINS}
 endif
 
+####### CHECKING DEFAULTS TO DELETE ######
+ifneq ($(strip ${WORDPRESS_DEFAULT_THEMES}),)
+	wpDefaultThemesToDelete := ${WORDPRESS_DEFAULT_THEMES}
+endif
+
+ifneq ($(strip ${WORDPRESS_DEFAULT_PLUGINS}),)
+	wpDefaultPluginsToDelete := ${WORDPRESS_DEFAULT_PLUGINS}
+endif
+
+ifneq ($(strip ${WORDPRESS_DEFAULT_POSTS_PAGES}),)
+	wpDefaultPostsPagesToDelete := ${WORDPRESS_DEFAULT_POSTS_PAGES}
+endif
+
 #################
 #	COMMANDS	
 #################
@@ -75,11 +88,17 @@ ifdef wpPlugins
 	-wp plugin install --activate $(wpPlugins)
 endif
 
+ifdef wpDefaultThemesToDelete
 	@echo -e "\n⚙️ Removing Wordpress default themes..."
-	-wp theme delete ${WORDPRESS_DEFAULT_THEMES}
+	-wp theme delete ${wpDefaultThemesToDelete}
+endif
 
+ifdef wpDefaultPluginsToDelete
 	@echo -e "\n⚙️ Removing Wordpress default plugins..."
-	-wp plugin delete ${WORDPRESS_DEFAULT_PLUGINS}
+	-wp plugin delete ${wpDefaultPluginsToDelete}
+endif
 
+ifdef wpDefaultPostsPagesToDelete
 	@echo -e "\n⚙️ Removing Wordpress default posts & pages..."
-	-wp post delete --force ${WORDPRESS_DEFAULT_POSTS_PAGES}
+	-wp post delete --force ${wpDefaultPostsPagesToDelete}
+endif
