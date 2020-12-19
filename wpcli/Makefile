@@ -30,14 +30,14 @@ endif
 ####### CHECKING LOCAL & REPO PLUGINS ######
 # Check if both local & repo plugin variables are not empty
 ifneq "$(and ${WORDPRESS_LOCAL_PLUGINS},${WORDPRESS_REPO_PLUGINS})" ""
-	# Loop all plugins then assign it with the plugin path diretory
+	# Loop all plugins then assign it with the plugin path directory
 	localPlugins := $(foreach plugin,${WORDPRESS_LOCAL_PLUGINS},$(wpPluginDir)/$(plugin))
 	# Combine all local & repo plugins
 	wpPlugins := $(localPlugins) ${WORDPRESS_REPO_PLUGINS}
 
 # Check if local plugin is not empty
 else ifneq ($(strip ${WORDPRESS_LOCAL_PLUGINS}),)
-	# Loop all plugins then assign it with the plugin path diretory
+	# Loop all plugins then assign it with the plugin path directory
 	localPlugins := $(foreach plugin,${WORDPRESS_LOCAL_PLUGINS},$(wpPluginDir)/$(plugin))
 	wpPlugins := $(localPlugins)
 
